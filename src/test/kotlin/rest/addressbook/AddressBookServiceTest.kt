@@ -84,11 +84,11 @@ class AddressBookServiceTest {
 
         // It's not idempotent if by repeating multiple request with the same 
         // person, that person is repeated so it means that the state has been changed
-        assertEquals(1,addressBook.personList.filter{person -> person.name == "Juan"})
+        assertEquals(1,addressBook.personList.filter{person -> person.name == "Juan"}.size)
         // The same request has the one in line 56
         response = restTemplate.postForEntity("http://localhost:$port/contacts", juan, Person::class.java)
         assertEquals(201,response.statusCode.value())
-        assertEquals(2,addressBook.personList.filter{person -> person.name == "Juan"})
+        assertEquals(2,addressBook.personList.filter{person -> person.name == "Juan"}.size)
     }
 
     @Test
@@ -220,7 +220,8 @@ class AddressBookServiceTest {
         assertEquals(204, response.statusCode.value())
 
         // It's not safe if the state has changed from before the preState to the postState
-        assert(preState.equals(postState))
+        assertEquals(preState.size, postState.size)
+        assert(preState[1] != postState[1])
     }
 
     @Test
@@ -231,6 +232,9 @@ class AddressBookServiceTest {
         val juanURI = URI.create("http://localhost:$port/contacts/person/2")
         addressBook.personList.add(salvador)
         addressBook.personList.add(juan)
+
+        // Get the state before the request
+        var preState = addressBook.personList.toMutableList()
 
         // Delete a user
         restTemplate.execute(juanURI, HttpMethod.DELETE, {}, { assertEquals(204, it.statusCode.value()) })
@@ -250,7 +254,9 @@ class AddressBookServiceTest {
         // response
         restTemplate.execute(juanURI, HttpMethod.DELETE, {}, { assertEquals(204, it.statusCode.value()) })
     
-        assert(!postState.equals(addressBook.personList))
+        assert(preState.size != postState.size)
+        assert(preState.contains(juan))
+        assert(!postState.contains(juan))
     }
 
     @Test
