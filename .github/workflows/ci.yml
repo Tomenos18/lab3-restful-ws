@@ -17,10 +17,10 @@ jobs:
           distribution: 'adopt'
       - name: Validate Gradle wrapper
         uses: gradle/wrapper-validation-action@e6e38bacfdf1a337459f332974bb2327a31aaf4b
-      - name: Build the server with Gradle
-        run: ./gradlew :server:build --no-daemon
-      - name: Test the server with Gradle
-        run: ./gradlew :server:check --no-daemon
+      - name: Build with Gradle
+        run: ./gradlew build --no-daemon
+      - name: Test with Gradle
+        run: ./gradlew check --no-daemon
       - name: Cleanup Gradle Cache
         run: |
           rm -f ~/.gradle/caches/modules-2/modules-2.lock
