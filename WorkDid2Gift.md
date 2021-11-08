@@ -69,7 +69,7 @@ It's finished and if we run the server, we can run the curl command and we get:
 
 ```bash
 curl -k -sI https://127.0.0.1:8443
-# -k is 
+# -k is to trust self-signed certificates
 ```
 
 And we get:
