@@ -1,4 +1,4 @@
-# Work did 2 earn the gift - 
+# Work did 2 earn the gift - HTTPS support
 
 This is the steps followed to support https request:
 
