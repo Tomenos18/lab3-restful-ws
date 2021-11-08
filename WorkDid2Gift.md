@@ -2,7 +2,7 @@
 
 This is the steps followed to support https request:
 
-First we run the kotlin server and if we use url to do a request:
+First we run the kotlin server and if we use curl to do a request:
 
 ```bash
 curl -sI http://127.0.0.1:8080
