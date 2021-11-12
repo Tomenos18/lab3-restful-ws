@@ -29,7 +29,6 @@ Proposed:
 - Support asynchronous requests without using Spring WebFlux
 - Use [JWT credentials](https://jwt.io/) to grant access to requests
 - Support of HTTP/2 requests
-- Support of HTTPS requests using self-signed certificate
 
 Note: unless the goal specifies o disallows a specific framework you are free to replace the framework used in the original implementation with a different framework.
 
